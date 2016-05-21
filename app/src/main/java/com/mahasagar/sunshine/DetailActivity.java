@@ -52,7 +52,10 @@ public class DetailActivity extends ActionBarActivity {
                                  Bundle savedInstanceState) {
 
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+
+            setHasOptionsMenu(true);
             Intent intent = getActivity().getIntent();
+
             String message = intent.getStringExtra(Intent.EXTRA_TEXT);
             TextView details_text = (TextView)rootView.findViewById(R.id.details_text);
             details_text.setText(message);
@@ -71,7 +74,6 @@ public class DetailActivity extends ActionBarActivity {
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             // Inflate the menu; this adds items to the action bar if it is present.
             inflater.inflate(R.menu.details_fragment, menu);
-
             // Retrieve the share menu item
             MenuItem menuItem = menu.findItem(R.id.action_share);
 
@@ -79,14 +81,15 @@ public class DetailActivity extends ActionBarActivity {
             ShareActionProvider mShareActionProvider =
                     (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
 
-            // Attach an intent to this ShareActionProvider.  You can update this at any time,
-            // like when the user selects a new piece of data they might like to share.
+            // Retrieve the share menu item
             if (mShareActionProvider != null ) {
                 mShareActionProvider.setShareIntent(createShareForecastIntent());
             } else {
                 Log.d(LOG_TAG, "Share Action Provider is null?");
             }
         }
+
+
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             // Handle action bar item clicks here. The action bar will
@@ -94,11 +97,10 @@ public class DetailActivity extends ActionBarActivity {
             // as you specify a parent activity in AndroidManifest.xml.
             int id = item.getItemId();
 
-            //noinspection SimplifiableIfStatement
-
 
             return super.onOptionsItemSelected(item);
         }
+
 
         private Intent createShareForecastIntent() {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);

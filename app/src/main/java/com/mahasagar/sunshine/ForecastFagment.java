@@ -188,11 +188,13 @@ public class ForecastFagment extends Fragment {
 //                    Arrays.asList(strings)
 //            );
             mForecastAdapter.clear();
+            try{
+                for (String dayForecast : strings) {
+                    mForecastAdapter.addAll(dayForecast);
+                }
+            }catch (Exception e){
 
-            for(String dayForecast : strings){
-                mForecastAdapter.addAll(dayForecast);
             }
-
         }
 
         private String getReadableDateString(long time){
